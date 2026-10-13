@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:LocationHeatMapApp.ViewModels"
+             xmlns:models="clr-namespace:LocationHeatMapApp.Models"
+             x:Class="LocationHeatMapApp.Views.HistoryView"
+             x:DataType="vm:HistoryViewModel"
+             Title="Location History">
+
+    <Grid RowDefinitions="Auto, Auto, *">
+        <!-- Top Summary Header Card -->
+        <Border Grid.Row="0"
+                Style="{StaticResource GlassCard}"
+                Margin="16,12,16,8">
+            <Grid ColumnDefinitions="*, Auto">
+                <VerticalStackLayout Grid.Column="0" Spacing="4">
+                    <Label Text="SQLite Database Records"
+                           Style="{StaticResource TitleMedium}" />
+                    <Label Text="{Binding StatusMessage}"
+                           Style="{StaticResource CaptionText}" />
+                </VerticalStackLayout>
+
+                <Button Grid.Column="1"
+                        Text="Wipe All"
+                        TextColor="{StaticResource AccentRose}"
+                        BackgroundColor="Transparent"
+                        FontSize="13"
+                        FontAttributes="Bold"
+                        Command="{Binding ClearAllCommand}" />
+            </Grid>
+        </Border>
+
+        <!-- Filter Chips Bar -->
+        <HorizontalStackLayout Grid.Row="1"
+                               Margin="16,0,16,10"
+                               Spacing="8">
+            <Button Text="All"
+                    Style="{StaticResource OutlinePillButton}"
+                    Command="{Binding SetFilterCommand}"
+                    CommandParameter="All" />
+            <Button Text="Today"
+                    Style="{StaticResource OutlinePillButton}"
+                    Command="{Binding SetFilterCommand}"
+                    CommandParameter="Today" />
+            <Button Text="Past 7 Days"
+                    Style="{StaticResource OutlinePillButton}"
+                    Command="{Binding SetFilterCommand}"
+                    CommandParameter="Past 7 Days" />
+        </HorizontalStackLayout>
+
+        <!-- Loading indicator -->
+        <ActivityIndicator Grid.Row="2"
+                           IsRunning="{Binding IsBusy}"
+                           IsVisible="{Binding IsBusy}"
+                           Color="{StaticResource AccentCyan}"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center" />
+
+        <!-- Telemetry Points CollectionView -->
+        <CollectionView Grid.Row="2"
+                        ItemsSource="{Binding Points}"
+                        Margin="16,0,16,10"
+                        SelectionMode="None">
+            <CollectionView.EmptyView>
+                <VerticalStackLayout HorizontalOptions="Center"
+                                     VerticalOptions="Center"
+                                     Spacing="12"
+                                     Margin="0,50">
+                    <Label Text="📍"
+                           FontSize="48"
+                           HorizontalOptions="Center" />
+                    <Label Text="No location history found"
+                           Style="{StaticResource TitleMedium}"
+                           HorizontalOptions="Center" />
+                    <Label Text="Start GPS tracking or simulate movement on the map tab to record locations into SQLite."
+                           Style="{StaticResource CaptionText}"
+                           HorizontalTextAlignment="Center"
+                           HorizontalOptions="Center" />
+                </VerticalStackLayout>
+            </CollectionView.EmptyView>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:LocationPoint">
+                    <Border Style="{StaticResource GlassCard}"
+                            Padding="12"
+                            Margin="0,0,0,8">
+                        <Grid ColumnDefinitions="Auto, *, Auto">
+                            <!-- Icon / Accent -->
+                            <Border Grid.Column="0"
+                                    WidthRequest="36"
+                                    HeightRequest="36"
+                                    StrokeShape="RoundRectangle 18"
+                                    BackgroundColor="#2A3850"
+                                    Stroke="{StaticResource AccentIndigo}"
+                                    StrokeThickness="1"
+                                    Margin="0,0,12,0"
+                                    VerticalOptions="Center">
+                                <Label Text="📍"
+                                       FontSize="16"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center" />
+                            </Border>
+
+                            <!-- Point Details -->
+                            <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+                                <Label Text="{Binding DisplayCoordinates}"
+                                       Style="{StaticResource TitleMedium}"
+                                       FontSize="14" />
+                                <Label Text="{Binding FormattedTime}"
+                                       Style="{StaticResource CaptionText}" />
+                                <Label Text="{Binding Accuracy, StringFormat='Accuracy: ±{0:F1}m'}"
+                                       Style="{StaticResource CaptionText}"
+                                       TextColor="{StaticResource AccentCyan}" />
+                            </VerticalStackLayout>
+
+                            <!-- Delete Action -->
+                            <Button Grid.Column="2"
+                                    Text="✕"
+                                    TextColor="{StaticResource TextMuted}"
+                                    BackgroundColor="Transparent"
+                                    FontSize="16"
+                                    WidthRequest="40"
+                                    HeightRequest="40"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HistoryViewModel}}, Path=DeletePointCommand}"
+                                    CommandParameter="{Binding .}" />
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+
+</ContentPage>

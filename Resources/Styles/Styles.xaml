@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xaml-comp compile="true" ?>
+<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <!-- Shell Styles -->
+    <Style TargetType="Shell" ApplyToDerivedTypes="True">
+        <Setter Property="Shell.BackgroundColor" Value="{StaticResource PrimaryDark}" />
+        <Setter Property="Shell.ForegroundColor" Value="{StaticResource TextPrimary}" />
+        <Setter Property="Shell.TitleColor" Value="{StaticResource TextPrimary}" />
+        <Setter Property="Shell.DisabledColor" Value="{StaticResource TextMuted}" />
+        <Setter Property="Shell.UnselectedColor" Value="{StaticResource TextSecondary}" />
+        <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource PrimaryDark}" />
+        <Setter Property="Shell.TabBarForegroundColor" Value="{StaticResource AccentCyan}" />
+        <Setter Property="Shell.TabBarUnselectedColor" Value="{StaticResource TextMuted}" />
+        <Setter Property="Shell.TabBarTitleColor" Value="{StaticResource AccentCyan}" />
+    </Style>
+
+    <!-- Global Page Style -->
+    <Style TargetType="ContentPage" ApplyToDerivedTypes="True">
+        <Setter Property="BackgroundColor" Value="{StaticResource PrimaryDark}" />
+    </Style>
+
+    <!-- Modern Typography Styles -->
+    <Style x:Key="HeadlineLarge" TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource TextPrimary}" />
+        <Setter Property="FontSize" Value="24" />
+        <Setter Property="FontAttributes" Value="Bold" />
+    </Style>
+
+    <Style x:Key="TitleMedium" TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource TextPrimary}" />
+        <Setter Property="FontSize" Value="17" />
+        <Setter Property="FontAttributes" Value="Bold" />
+    </Style>
+
+    <Style x:Key="BodyRegular" TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource TextSecondary}" />
+        <Setter Property="FontSize" Value="14" />
+    </Style>
+
+    <Style x:Key="CaptionText" TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource TextMuted}" />
+        <Setter Property="FontSize" Value="12" />
+    </Style>
+
+    <!-- Glassmorphic Card Style -->
+    <Style x:Key="GlassCard" TargetType="Border">
+        <Setter Property="BackgroundColor" Value="{StaticResource GlassOverlay}" />
+        <Setter Property="Stroke" Value="{StaticResource CardBorder}" />
+        <Setter Property="StrokeThickness" Value="1" />
+        <Setter Property="StrokeShape" Value="RoundRectangle 16" />
+        <Setter Property="Padding" Value="16" />
+        <Setter Property="Shadow">
+            <Shadow Brush="#000000" Offset="0,6" Radius="12" Opacity="0.4" />
+        </Setter>
+    </Style>
+
+    <!-- Floating Action Button (FAB) -->
+    <Style x:Key="FabButton" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="{StaticResource AccentIndigo}" />
+        <Setter Property="TextColor" Value="{StaticResource TextPrimary}" />
+        <Setter Property="CornerRadius" Value="28" />
+        <Setter Property="HeightRequest" Value="56" />
+        <Setter Property="WidthRequest" Value="56" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="Shadow">
+            <Shadow Brush="#000000" Offset="0,4" Radius="8" Opacity="0.35" />
+        </Setter>
+    </Style>
+
+    <!-- Action Pill Button -->
+    <Style x:Key="PillButton" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="{StaticResource AccentCyan}" />
+        <Setter Property="TextColor" Value="{StaticResource PrimaryDark}" />
+        <Setter Property="CornerRadius" Value="20" />
+        <Setter Property="HeightRequest" Value="42" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="Padding" Value="16,0" />
+    </Style>
+
+    <Style x:Key="OutlinePillButton" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="BorderColor" Value="{StaticResource AccentCyan}" />
+        <Setter Property="BorderWidth" Value="1" />
+        <Setter Property="TextColor" Value="{StaticResource AccentCyan}" />
+        <Setter Property="CornerRadius" Value="20" />
+        <Setter Property="HeightRequest" Value="42" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="Padding" Value="16,0" />
+    </Style>
+
+    <!-- Modern Slider -->
+    <Style TargetType="Slider">
+        <Setter Property="MinimumTrackColor" Value="{StaticResource AccentCyan}" />
+        <Setter Property="MaximumTrackColor" Value="{StaticResource CardBorder}" />
+        <Setter Property="ThumbColor" Value="{StaticResource TextPrimary}" />
+    </Style>
+
+</ResourceDictionary>

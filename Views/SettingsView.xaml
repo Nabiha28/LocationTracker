@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:LocationHeatMapApp.ViewModels"
+             x:Class="LocationHeatMapApp.Views.SettingsView"
+             x:DataType="vm:SettingsViewModel"
+             Title="Settings">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="16" Margin="16,14">
+            <!-- SQLite Database Info Card -->
+            <Border Style="{StaticResource GlassCard}">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="SQLite Storage Engine"
+                           Style="{StaticResource TitleMedium}" />
+                    <Label Text="All coordinates are persistently retained in a local SQLite file using sqlite-net-pcl."
+                           Style="{StaticResource CaptionText}" />
+
+                    <BoxView HeightRequest="1" Color="{StaticResource CardBorder}" Margin="0,4" />
+
+                    <Label Text="File Path:"
+                           Style="{StaticResource CaptionText}" />
+                    <Label Text="{Binding DatabasePath}"
+                           Style="{StaticResource BodyRegular}"
+                           FontSize="12"
+                           LineBreakMode="CharacterWrap" />
+
+                    <Grid ColumnDefinitions="*, Auto" Margin="0,6,0,0">
+                        <Label Grid.Column="0"
+                               Text="Total Records:"
+                               Style="{StaticResource BodyRegular}"
+                               VerticalOptions="Center" />
+                        <Label Grid.Column="1"
+                               Text="{Binding RecordCount, StringFormat='{0} rows'}"
+                               Style="{StaticResource TitleMedium}"
+                               TextColor="{StaticResource AccentCyan}" />
+                    </Grid>
+
+                    <Button Text="Optimize SQLite Indexes"
+                            Style="{StaticResource OutlinePillButton}"
+                            Margin="0,8,0,0"
+                            Command="{Binding OptimizeDatabaseCommand}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Location Engine Info Card -->
+            <Border Style="{StaticResource GlassCard}">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Geolocation &amp; Sensor Settings"
+                           Style="{StaticResource TitleMedium}" />
+                    <Label Text="Hardware GPS polling parameters using Microsoft.Maui.Devices.Sensors."
+                           Style="{StaticResource CaptionText}" />
+
+                    <BoxView HeightRequest="1" Color="{StaticResource CardBorder}" Margin="0,4" />
+
+                    <Grid ColumnDefinitions="*, Auto">
+                        <Label Grid.Column="0"
+                               Text="Desired Accuracy:"
+                               Style="{StaticResource BodyRegular}"
+                               VerticalOptions="Center" />
+                        <Label Grid.Column="1"
+                               Text="{Binding TrackingAccuracy}"
+                               Style="{StaticResource BodyRegular}"
+                               TextColor="{StaticResource AccentEmerald}" />
+                    </Grid>
+
+                    <Grid ColumnDefinitions="*, Auto">
+                        <Label Grid.Column="0"
+                               Text="Sampling Frequency:"
+                               Style="{StaticResource BodyRegular}"
+                               VerticalOptions="Center" />
+                        <Label Grid.Column="1"
+                               Text="{Binding TrackingIntervalSeconds, StringFormat='Every {0}s'}"
+                               Style="{StaticResource BodyRegular}"
+                               TextColor="{StaticResource AccentAmber}" />
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- HeatMap Technology Card -->
+            <Border Style="{StaticResource GlassCard}">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="About HeatMap Engine"
+                           Style="{StaticResource TitleMedium}" />
+                    <Label Text="Built by extending Microsoft.Maui.Controls.Maps.Map. Employs Gaussian Kernel Density Estimation (KDE) with concentric radial gradient falloff to render high-contrast thermal overlays."
+                           Style="{StaticResource CaptionText}" />
+                </VerticalStackLayout>
+            </Border>
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

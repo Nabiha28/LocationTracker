@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="LocationHeatMapApp.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:LocationHeatMapApp.Views"
+    Title="Location HeatMap">
+
+    <TabBar>
+        <Tab Title="HeatMap">
+            <ShellContent
+                Title="HeatMap"
+                ContentTemplate="{DataTemplate views:MainMapView}"
+                Route="MainMapView" />
+        </Tab>
+        <Tab Title="History">
+            <ShellContent
+                Title="History"
+                ContentTemplate="{DataTemplate views:HistoryView}"
+                Route="HistoryView" />
+        </Tab>
+        <Tab Title="Settings">
+            <ShellContent
+                Title="Settings"
+                ContentTemplate="{DataTemplate views:SettingsView}"
+                Route="SettingsView" />
+        </Tab>
+    </TabBar>
+
+</Shell>

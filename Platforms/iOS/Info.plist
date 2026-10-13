@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>UIDeviceFamily</key>
+	<array>
+		<integer>1</integer>
+		<integer>2</integer>
+	</array>
+	<key>UIRequiredDeviceCapabilities</key>
+	<array>
+		<string>arm64</string>
+	</array>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>XSAppIconAssets</key>
+	<string>Assets.xcassets/appicon.appiconset</string>
+
+	<!-- Location Tracking Privacy Permissions -->
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>LocationHeatMap needs your current location to visualize your position and generate real-time heat maps.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>LocationHeatMap requires background location access to track movement and record heat map telemetry.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>LocationHeatMap records periodic coordinates to build an accurate personal heat map history.</string>
+
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>location</string>
+	</array>
+</dict>
+</plist>

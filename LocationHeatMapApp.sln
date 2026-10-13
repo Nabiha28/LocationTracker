@@ -1,0 +1,29 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LocationHeatMapApp", "LocationHeatMapApp.csproj", "{B784B29C-4DA3-49F1-9877-CE74F6EFD908}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LocationHeatMapApp.Tests", "tests\LocationHeatMapApp.Tests\LocationHeatMapApp.Tests.csproj", "{47C10B74-C3D7-49FB-A0EE-A0CFFB0AA148}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B784B29C-4DA3-49F1-9877-CE74F6EFD908}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B784B29C-4DA3-49F1-9877-CE74F6EFD908}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B784B29C-4DA3-49F1-9877-CE74F6EFD908}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{B784B29C-4DA3-49F1-9877-CE74F6EFD908}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B784B29C-4DA3-49F1-9877-CE74F6EFD908}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B784B29C-4DA3-49F1-9877-CE74F6EFD908}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{47C10B74-C3D7-49FB-A0EE-A0CFFB0AA148}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47C10B74-C3D7-49FB-A0EE-A0CFFB0AA148}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47C10B74-C3D7-49FB-A0EE-A0CFFB0AA148}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47C10B74-C3D7-49FB-A0EE-A0CFFB0AA148}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

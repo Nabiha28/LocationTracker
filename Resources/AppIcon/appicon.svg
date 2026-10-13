@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <rect width="512" height="512" rx="128" fill="#0F172A" />
+  <circle cx="256" cy="256" r="180" fill="#1E293B" stroke="#334155" stroke-width="8" />
+  <!-- Heat rings -->
+  <circle cx="256" cy="240" r="140" fill="#06B6D4" opacity="0.3" />
+  <circle cx="256" cy="240" r="100" fill="#10B981" opacity="0.4" />
+  <circle cx="256" cy="240" r="65" fill="#F59E0B" opacity="0.5" />
+  <circle cx="256" cy="240" r="35" fill="#EF4444" opacity="0.8" />
+  <!-- Pin Icon -->
+  <path d="M256 160 C222 160 196 186 196 220 C196 265 256 330 256 330 C256 330 316 265 316 220 C316 186 290 160 256 160 Z" fill="#FFFFFF" />
+  <circle cx="256" cy="220" r="16" fill="#0F172A" />
+</svg>

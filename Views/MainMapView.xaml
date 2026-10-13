@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:LocationHeatMapApp.ViewModels"
+             xmlns:controls="clr-namespace:LocationHeatMapApp.Controls"
+             xmlns:converters="clr-namespace:LocationHeatMapApp.Converters"
+             x:Class="LocationHeatMapApp.Views.MainMapView"
+             x:DataType="vm:MainMapViewModel"
+             Title="HeatMap">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:BooleanToTrackingTextConverter x:Key="TrackingTextConverter" />
+            <converters:BooleanToSimulationTextConverter x:Key="SimulationTextConverter" />
+            <converters:BooleanToColorConverter x:Key="TrackingColorConverter" 
+                                               TrueColor="#EF4444" 
+                                               FalseColor="#10B981" />
+            <converters:BooleanToColorConverter x:Key="SimulationColorConverter" 
+                                               TrueColor="#F59E0B" 
+                                               FalseColor="#06B6D4" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid>
+        <!-- Extended .NET MAUI Maps Component with HeatMap Layer -->
+        <controls:HeatMap x:Name="AppMap"
+                          HeatPoints="{Binding HeatPoints}"
+                          Config="{Binding MapConfig}"
+                          IsHeatMapVisible="{Binding IsHeatMapVisible}"
+                          HorizontalOptions="Fill"
+                          VerticalOptions="Fill" />
+
+        <!-- Top Floating HUD Status Bar -->
+        <Border Style="{StaticResource GlassCard}"
+                Margin="16,12"
+                VerticalOptions="Start"
+                HorizontalOptions="Fill">
+            <Grid ColumnDefinitions="Auto, *, Auto" RowDefinitions="Auto, Auto">
+                <!-- Status Pulsing Indicator -->
+                <Ellipse Grid.Row="0" Grid.Column="0"
+                         WidthRequest="12" HeightRequest="12"
+                         Margin="0,0,10,0"
+                         VerticalOptions="Center">
+                    <Ellipse.Triggers>
+                        <DataTrigger TargetType="Ellipse" Binding="{Binding IsTracking}" Value="True">
+                            <Setter Property="Fill" Value="#10B981" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="Ellipse" Binding="{Binding IsTracking}" Value="False">
+                            <Setter Property="Fill" Value="#94A3B8" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="Ellipse" Binding="{Binding IsSimulating}" Value="True">
+                            <Setter Property="Fill" Value="#06B6D4" />
+                        </DataTrigger>
+                    </Ellipse.Triggers>
+                </Ellipse>
+
+                <!-- Status Title & Message -->
+                <VerticalStackLayout Grid.Row="0" Grid.Column="1" Spacing="2">
+                    <Label Text="Telemetry Status"
+                           Style="{StaticResource CaptionText}" />
+                    <Label Text="{Binding CurrentStatus}"
+                           Style="{StaticResource TitleMedium}"
+                           FontSize="15"
+                           LineBreakMode="TailTruncation" />
+                </VerticalStackLayout>
+
+                <!-- SQLite Points Badge -->
+                <Border Grid.Row="0" Grid.Column="2"
+                        BackgroundColor="#2A3850"
+                        Stroke="{StaticResource AccentCyan}"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 12"
+                        Padding="10,4"
+                        VerticalOptions="Center">
+                    <Label Text="{Binding TotalRecordedPoints, StringFormat='{0} pts'}"
+                           TextColor="{StaticResource AccentCyan}"
+                           FontAttributes="Bold"
+                           FontSize="13" />
+                </Border>
+
+                <!-- Coordinate & Fix details -->
+                <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
+                       Text="{Binding LastLocationText}"
+                       Style="{StaticResource CaptionText}"
+                       Margin="0,6,0,0" />
+            </Grid>
+        </Border>
+
+        <!-- Right Floating Quick Action Buttons Stack -->
+        <VerticalStackLayout Spacing="10"
+                             Margin="0,90,16,0"
+                             VerticalOptions="Start"
+                             HorizontalOptions="End">
+            <!-- Center On User -->
+            <Button Style="{StaticResource FabButton}"
+                    Text="🎯"
+                    FontSize="20"
+                    ToolTipProperties.Text="Center GPS"
+                    Command="{Binding CenterOnUserLocationCommand}" />
+
+            <!-- Zoom to Fit Heatmap -->
+            <Button Style="{StaticResource FabButton}"
+                    Text="🔍"
+                    FontSize="20"
+                    ToolTipProperties.Text="Zoom to Fit Heatmap"
+                    Clicked="OnZoomFitClicked" />
+
+            <!-- Toggle Heatmap Overlay Visibility -->
+            <Button Style="{StaticResource FabButton}"
+                    Text="🔥"
+                    FontSize="20"
+                    ToolTipProperties.Text="Toggle HeatMap Layer"
+                    Clicked="OnToggleHeatMapClicked" />
+
+            <!-- Palette Switcher -->
+            <Button Style="{StaticResource FabButton}"
+                    Text="🎨"
+                    FontSize="18"
+                    ToolTipProperties.Text="Switch Color Gradient"
+                    Command="{Binding TogglePaletteCommand}" />
+
+            <!-- Seed Sample Data -->
+            <Button Style="{StaticResource FabButton}"
+                    BackgroundColor="#334155"
+                    Text="⚡"
+                    FontSize="20"
+                    ToolTipProperties.Text="Seed 150 Hotspot Samples"
+                    Command="{Binding SeedSampleDataCommand}" />
+        </VerticalStackLayout>
+
+        <!-- Bottom Drawer / Control Dashboard -->
+        <Border Style="{StaticResource GlassCard}"
+                Margin="14,0,14,12"
+                VerticalOptions="End"
+                HorizontalOptions="Fill">
+            <VerticalStackLayout Spacing="12">
+                <!-- Primary Action Buttons (Track & Simulate) -->
+                <Grid ColumnDefinitions="*, *" ColumnSpacing="10">
+                    <!-- Live GPS Tracking Button -->
+                    <Button Grid.Column="0"
+                            Style="{StaticResource PillButton}"
+                            Text="{Binding IsTracking, Converter={StaticResource TrackingTextConverter}}"
+                            BackgroundColor="{Binding IsTracking, Converter={StaticResource TrackingColorConverter}}"
+                            TextColor="White"
+                            Command="{Binding ToggleTrackingCommand}" />
+
+                    <!-- Route Simulation Button -->
+                    <Button Grid.Column="1"
+                            Style="{StaticResource PillButton}"
+                            Text="{Binding IsSimulating, Converter={StaticResource SimulationTextConverter}}"
+                            BackgroundColor="{Binding IsSimulating, Converter={StaticResource SimulationColorConverter}}"
+                            TextColor="White"
+                            Command="{Binding ToggleSimulationCommand}" />
+                </Grid>
+
+                <!-- Heatmap Calibration Sliders (Collapsible Accordion or Direct Controls) -->
+                <Grid ColumnDefinitions="Auto, *, Auto" RowDefinitions="Auto, Auto, Auto" RowSpacing="6">
+                    <!-- Radius Slider -->
+                    <Label Grid.Row="0" Grid.Column="0"
+                           Text="Radius:"
+                           Style="{StaticResource CaptionText}"
+                           VerticalOptions="Center" />
+                    <Slider Grid.Row="0" Grid.Column="1"
+                            Minimum="15" Maximum="150"
+                            Value="{Binding HeatRadius, Mode=TwoWay}"
+                            Margin="8,0" />
+                    <Label Grid.Row="0" Grid.Column="2"
+                           Text="{Binding HeatRadius, StringFormat='{0:F0}m'}"
+                           Style="{StaticResource CaptionText}"
+                           FontAttributes="Bold"
+                           VerticalOptions="Center" />
+
+                    <!-- Opacity Slider -->
+                    <Label Grid.Row="1" Grid.Column="0"
+                           Text="Opacity:"
+                           Style="{StaticResource CaptionText}"
+                           VerticalOptions="Center" />
+                    <Slider Grid.Row="1" Grid.Column="1"
+                            Minimum="0.2" Maximum="1.0"
+                            Value="{Binding HeatOpacity, Mode=TwoWay}"
+                            Margin="8,0" />
+                    <Label Grid.Row="1" Grid.Column="2"
+                           Text="{Binding HeatOpacity, StringFormat='{0:P0}'}"
+                           Style="{StaticResource CaptionText}"
+                           FontAttributes="Bold"
+                           VerticalOptions="Center" />
+
+                    <!-- Cluster Radius Slider -->
+                    <Label Grid.Row="2" Grid.Column="0"
+                           Text="Cluster:"
+                           Style="{StaticResource CaptionText}"
+                           VerticalOptions="Center" />
+                    <Slider Grid.Row="2" Grid.Column="1"
+                            Minimum="10" Maximum="100"
+                            Value="{Binding ClusterRadius, Mode=TwoWay}"
+                            Margin="8,0" />
+                    <Label Grid.Row="2" Grid.Column="2"
+                           Text="{Binding ClusterRadius, StringFormat='{0:F0}m'}"
+                           Style="{StaticResource CaptionText}"
+                           FontAttributes="Bold"
+                           VerticalOptions="Center" />
+                </Grid>
+
+                <!-- Footer Quick Bar -->
+                <Grid ColumnDefinitions="*, Auto">
+                    <Label Grid.Column="0"
+                           Text="{Binding ActivePaletteName, StringFormat='Palette: {0}'}"
+                           Style="{StaticResource CaptionText}"
+                           VerticalOptions="Center" />
+                    <Button Grid.Column="1"
+                            Text="Clear Data"
+                            TextColor="{StaticResource AccentRose}"
+                            BackgroundColor="Transparent"
+                            FontSize="12"
+                            HeightRequest="30"
+                            Padding="0"
+                            Command="{Binding ClearAllDataCommand}" />
+                </Grid>
+            </VerticalStackLayout>
+        </Border>
+    </Grid>
+
+</ContentPage>
