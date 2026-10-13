@@ -6,6 +6,18 @@ A cross-platform mobile and desktop application built with **C#** and **.NET MAU
 
 ---
 
+## 📱 Application Output (Running Deliverable)
+
+<div align="center">
+  <img src="docs/screenshots/app_heatmap_output.jpg" alt="Location HeatMap Application Output" width="380" />
+  <p><em>Figure 1: Application Output — Location HeatMap running on .NET MAUI with live telemetry HUD, Gaussian density rings, and interactive calibration drawer.</em></p>
+</div>
+
+📄 **Final Deliverable Document**: [`Final_Deliverable_Location_Tracker.docx`](Final_Deliverable_Location_Tracker.docx)  
+🔗 **Repository URL**: `https://github.com/Nabiha28/LocationTracker`
+
+---
+
 ## 🌟 Key Features
 
 1. **Extended .NET MAUI Maps Component (`HeatMap : Map`)**:
